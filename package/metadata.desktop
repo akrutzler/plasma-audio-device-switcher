@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Audio Device Switcher
+Comment=Simple widget to change the default audio output device/sink
 
 Icon=org.kde.plasma.volume
 Type=Service
