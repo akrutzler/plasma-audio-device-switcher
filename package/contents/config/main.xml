@@ -6,7 +6,7 @@
   <kcfgfile name=""/>
 
   <group name="General">
-    <entry name="showIcons" type="Bool">
+    <entry name="showIconsOnly" type="Bool">
       <default>false</default>
     </entry>
   </group>

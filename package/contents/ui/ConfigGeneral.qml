@@ -23,13 +23,13 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.0
 
 Item {
-    property alias cfg_showIcons: showIcons.checked
+    property alias cfg_showIconsOnly: showIconsOnly.checked
 
     ColumnLayout {
         Layout.fillWidth: true
         CheckBox {
-            id: showIcons
-            text: i18n("Show icons")
+            id: showIconsOnly
+            text: i18n("Show icons only")
         }
     }
 }

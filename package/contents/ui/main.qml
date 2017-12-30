@@ -35,7 +35,7 @@ Item {
     Layout.minimumHeight: rowLayout.implicitHeight
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
 
-    property bool showIcons: plasmoid.configuration.showIcons
+    property bool showIconsOnly: plasmoid.configuration.showIconsOnly
 
     // from plasma-volume-control applet
     function iconNameFromPort(port, fallback) {
@@ -71,15 +71,15 @@ Item {
                 id: tab
                 enabled: currentPort ? currentPort.availability !== Port.Unavailable : false
 
-                text: showIcons ? "" : currentDescription
-                iconName: showIcons ? iconNameFromPort(currentPort, IconName) : ""
+                text: showIconsOnly ? "" : currentDescription
+                iconName: showIconsOnly ? iconNameFromPort(currentPort, IconName) : ""
 
                 checkable: true
                 exclusiveGroup: buttonGroup
                 tooltip: currentDescription
 
                 Layout.fillWidth: true
-                Layout.preferredWidth: showIcons ? -1 : units.gridUnit * 10
+                Layout.preferredWidth: showIconsOnly ? -1 : units.gridUnit * 10
 
                 readonly property var sink: PulseObject
                 readonly property var currentPort: Ports[ActivePortIndex]
