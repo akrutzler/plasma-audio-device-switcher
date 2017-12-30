@@ -71,19 +71,19 @@ Item {
                 id: tab
                 enabled: currentPort ? currentPort.availability !== Port.Unavailable : false
 
-                text: showIcons
-                      ? ""
-                      : currentPort ? currentPort.description : Description
+                text: showIcons ? "" : currentDescription
                 iconName: showIcons ? iconNameFromPort(currentPort, IconName) : ""
 
                 checkable: true
                 exclusiveGroup: buttonGroup
+                tooltip: currentDescription
 
                 Layout.fillWidth: true
                 Layout.preferredWidth: showIcons ? -1 : units.gridUnit * 10
 
                 readonly property var sink: PulseObject
                 readonly property var currentPort: Ports[ActivePortIndex]
+                readonly property string currentDescription: currentPort ? currentPort.description : Description
 
                 Binding {
                     target: tab
