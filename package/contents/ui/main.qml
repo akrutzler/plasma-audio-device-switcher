@@ -35,6 +35,26 @@ Item {
     Layout.minimumHeight: rowLayout.implicitHeight
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
 
+    property bool showIcons: plasmoid.configuration.showIcons
+
+    // from plasma-volume-control applet
+    function iconNameFromPort(port, fallback) {
+        if (port) {
+            if (port.name.indexOf("speaker") !== -1) {
+                return "audio-speakers-symbolic";
+            } else if (port.name.indexOf("headphones") !== -1) {
+                return "audio-headphones";
+            } else if (port.name.indexOf("hdmi") !== -1) {
+                return "video-television";
+            } else if (port.name.indexOf("mic") !== -1) {
+                return "audio-input-microphone";
+            } else if (port.name.indexOf("phone") !== -1) {
+                return "phone";
+            }
+        }
+        return fallback;
+    }
+
     RowLayout {
         id: rowLayout
         anchors.fill: parent
@@ -49,13 +69,18 @@ Item {
 
             delegate: PlasmaComponents.Button {
                 id: tab
+                enabled: currentPort ? currentPort.availability !== Port.Unavailable : false
 
-                text: currentPort ? currentPort.description : Description
+                text: showIcons
+                      ? ""
+                      : currentPort ? currentPort.description : Description
+                iconName: showIcons ? iconNameFromPort(currentPort, IconName) : ""
+
                 checkable: true
                 exclusiveGroup: buttonGroup
 
                 Layout.fillWidth: true
-                Layout.preferredWidth: units.gridUnit * 10
+                Layout.preferredWidth: showIcons ? -1 : units.gridUnit * 10
 
                 readonly property var sink: PulseObject
                 readonly property var currentPort: Ports[ActivePortIndex]
@@ -71,9 +96,5 @@ Item {
                 }
             }
         }
-    }
-
-    Component.onCompleted: {
-        plasmoid.removeAction("configure")
     }
 }
