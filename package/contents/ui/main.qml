@@ -69,7 +69,7 @@ Item {
 
             delegate: PlasmaComponents.Button {
                 id: tab
-                enabled: currentPort ? currentPort.availability !== Port.Unavailable : false
+                enabled: currentPort !== null
 
                 text: showIconsOnly ? "" : currentDescription
                 iconName: showIconsOnly ? iconNameFromPort(currentPort, IconName) : ""
