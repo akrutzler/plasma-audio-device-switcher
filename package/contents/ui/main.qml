@@ -22,6 +22,7 @@ import QtQuick 2.2
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.2 as QtControls
 
+import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.plasma.plasmoid 2.0
 
@@ -31,11 +32,12 @@ import org.kde.plasma.private.volume 0.1
 Item {
     id: main
 
-    Layout.minimumWidth: rowLayout.implicitWidth
-    Layout.minimumHeight: rowLayout.implicitHeight
+    Layout.minimumWidth: gridLayout.implicitWidth
+    Layout.minimumHeight: gridLayout.implicitHeight
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
 
     property bool showIconsOnly: plasmoid.configuration.showIconsOnly
+    property bool useVerticalLayout: plasmoid.configuration.useVerticalLayout
 
     // from plasma-volume-control applet
     function iconNameFromPort(port, fallback) {
@@ -55,8 +57,9 @@ Item {
         return fallback;
     }
 
-    RowLayout {
-        id: rowLayout
+    GridLayout {
+        id: gridLayout
+        flow: useVerticalLayout == true ? GridLayout.TopToBottom : GridLayout.LeftToRight
         anchors.fill: parent
 
         QtControls.ExclusiveGroup {

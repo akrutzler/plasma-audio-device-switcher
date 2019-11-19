@@ -24,12 +24,17 @@ import QtQuick.Controls 1.0
 
 Item {
     property alias cfg_showIconsOnly: showIconsOnly.checked
+    property alias cfg_useVerticalLayout: useVerticalLayout.checked
 
     ColumnLayout {
         Layout.fillWidth: true
         CheckBox {
             id: showIconsOnly
             text: i18n("Show icons only")
+        }
+        CheckBox {
+            id: useVerticalLayout
+            text: i18n("Use vertical layout")
         }
     }
 }
