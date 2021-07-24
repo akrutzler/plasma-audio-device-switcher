@@ -84,9 +84,9 @@ Item {
                 Layout.fillWidth: true
                 Layout.preferredWidth: showIconsOnly ? -1 : units.gridUnit * 10
 
-                readonly property var sink: PulseObject
-                readonly property var currentPort: Ports[ActivePortIndex]
-                readonly property string currentDescription: currentPort ? currentPort.description : Description
+                readonly property var sink: model.PulseObject
+                readonly property var currentPort: model.Ports[ActivePortIndex]
+                readonly property string currentDescription: currentPort ? currentPort.description : model.Description
 
                 Binding {
                     target: tab
