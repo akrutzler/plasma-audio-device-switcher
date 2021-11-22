@@ -86,7 +86,7 @@ Item {
 
                 readonly property var sink: model.PulseObject
                 readonly property var currentPort: model.Ports[ActivePortIndex]
-                readonly property string currentDescription: currentPort ? currentPort.description : model.Description
+                readonly property string currentDescription: model.Description
 
                 Binding {
                     target: tab
