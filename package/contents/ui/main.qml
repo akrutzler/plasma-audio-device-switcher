@@ -81,6 +81,7 @@ Item {
                 exclusiveGroup: buttonGroup
                 tooltip: currentDescription
 
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.preferredWidth: showIconsOnly ? -1 : units.gridUnit * 10
 
