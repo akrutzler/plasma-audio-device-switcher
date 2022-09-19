@@ -6,10 +6,24 @@
   <kcfgfile name=""/>
 
   <group name="General">
-    <entry name="showIconsOnly" type="Bool">
-      <default>false</default>
+    <entry name="labeling" type="Enum">
+      <choices>
+        <choice name="iconWithDescription">
+          <label>Icon with description</label>
+        </choice>
+        <choice name="descriptionOnly">
+          <label>Description only</label>
+        </choice>
+        <choice name="iconOnly">
+          <label>Icon only</label>
+        </choice>
+        <default>iconWithDescription</default>
+      </choices>
     </entry>
     <entry name="useVerticalLayout" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="usePortDescription" type="Bool">
       <default>false</default>
     </entry>
   </group>
