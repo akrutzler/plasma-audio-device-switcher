@@ -39,3 +39,7 @@ Makefile*
 # QtCtreator CMake
 CMakeLists.txt.user*
 
+# KDevelop
+*.kdev4
+/.kdev4
+/build

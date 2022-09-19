@@ -23,14 +23,38 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.0
 
 Item {
-    property alias cfg_showIconsOnly: showIconsOnly.checked
+    property int cfg_labeling: 0
+    property alias cfg_usePortDescription: usePortDescription.checked
     property alias cfg_useVerticalLayout: useVerticalLayout.checked
 
     ColumnLayout {
         Layout.fillWidth: true
+        
+        ColumnLayout {
+            id: labeling
+            ExclusiveGroup { id: labelingGroup }
+            Repeater {
+                id: buttonRepeater
+                model: [
+                    i18n("Show icon with description"),
+                    i18n("Show description only"),
+                    i18n("Show icon only")
+                ]
+                RadioButton {
+                    text: modelData
+                    checked: index === cfg_labeling
+                    exclusiveGroup: labelingGroup
+                    onClicked: {
+                        cfg_labeling = index
+                    }
+                }
+            }
+        }
+        
         CheckBox {
-            id: showIconsOnly
-            text: i18n("Show icons only")
+            id: usePortDescription
+            enabled: cfg_labeling != 2 // "Icon only"
+            text: i18n("Use the audio sink's port description rather than the sink description")
         }
         CheckBox {
             id: useVerticalLayout

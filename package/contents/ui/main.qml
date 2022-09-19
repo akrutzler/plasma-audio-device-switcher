@@ -36,30 +36,49 @@ Item {
     Layout.minimumHeight: gridLayout.implicitHeight
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
 
-    property bool showIconsOnly: plasmoid.configuration.showIconsOnly
+    property int labeling: plasmoid.configuration.labeling
     property bool useVerticalLayout: plasmoid.configuration.useVerticalLayout
+    property bool usePortDescription: plasmoid.configuration.usePortDescription
 
     // from plasma-volume-control applet
-    function iconNameFromPort(port, fallback) {
-        if (port) {
-            if (port.name.indexOf("speaker") !== -1) {
+    // see https://github.com/KDE/plasma-pa/blob/master/applet/contents/code/icon.js
+    function formFactorIcon(formFactor) {
+        switch(formFactor) {
+            case "internal":
+                return "audio-card";
+            case "speaker":
                 return "audio-speakers-symbolic";
-            } else if (port.name.indexOf("headphones") !== -1) {
-                return "audio-headphones";
-            } else if (port.name.indexOf("hdmi") !== -1) {
-                return "video-television";
-            } else if (port.name.indexOf("mic") !== -1) {
-                return "audio-input-microphone";
-            } else if (port.name.indexOf("phone") !== -1) {
+            case "phone":
                 return "phone";
-            }
+            case "handset":
+                return "phone";
+            case "tv":
+                return "video-television";
+            case "webcam":
+                return "camera-web";
+            case "microphone":
+                return "audio-input-microphone";
+            case "headset":
+                return "audio-headset";
+            case "headphone":
+                return "audio-headphones";
+            case "hands-free":
+                return "hands-free";
+            case "car":
+                return "car";
+            case "hifi":
+                return "hifi";
+            case "computer":
+                return "computer";
+            case "portable":
+                return "portable";
         }
-        return fallback;
+        return "audio-volume-high"; // fallback
     }
-
+    
     GridLayout {
         id: gridLayout
-        flow: useVerticalLayout == true ? GridLayout.TopToBottom : GridLayout.LeftToRight
+        flow: useVerticalLayout? GridLayout.TopToBottom : GridLayout.LeftToRight
         anchors.fill: parent
 
         QtControls.ExclusiveGroup {
@@ -74,20 +93,20 @@ Item {
                 id: tab
                 enabled: currentPort !== null
 
-                text: showIconsOnly ? "" : currentDescription
-                iconName: showIconsOnly ? iconNameFromPort(currentPort, IconName) : ""
+                text: labeling != 2 ? currentDescription : ""
+                iconName: labeling != 1 ? formFactorIcon(sink.formFactor) : ""
 
                 checkable: true
                 exclusiveGroup: buttonGroup
                 tooltip: currentDescription
 
                 Layout.fillWidth: true
-                Layout.preferredWidth: showIconsOnly ? -1 : units.gridUnit * 10
+                Layout.preferredWidth: -1
 
                 readonly property var sink: model.PulseObject
                 readonly property var currentPort: model.Ports[ActivePortIndex]
-                readonly property string currentDescription: currentPort ? currentPort.description : model.Description
-
+                readonly property string currentDescription: usePortDescription? currentPort ? currentPort.description : model.Description : model.Description
+                
                 Binding {
                     target: tab
                     property: "checked"
