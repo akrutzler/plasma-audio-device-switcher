@@ -46,6 +46,8 @@ Item {
                 return "audio-speakers-symbolic";
             } else if (port.name.indexOf("headphones") !== -1) {
                 return "audio-headphones";
+            } else if (port.name.indexOf("headset") !== -1) {
+                return "audio-headset";
             } else if (port.name.indexOf("hdmi") !== -1) {
                 return "video-television";
             } else if (port.name.indexOf("mic") !== -1) {
